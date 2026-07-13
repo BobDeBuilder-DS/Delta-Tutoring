@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Apply — Delta Tutoring</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--teal:#1D9E75;--teal-dark:#0F6E56;--teal-light:#E1F5EE;--dark:#1A1A1A;--mid:#555;--light:#F7F7F7;--border:#E5E5E5;--radius:10px;}
+body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);min-height:100vh;}
+nav{background:var(--dark);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--teal);position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:20px;color:#fff;text-decoration:none;}
+.nav-logo span{color:var(--teal);}
+.nav-back{font-size:12px;color:#aaa;text-decoration:none;}
+.nav-back:hover{color:#fff;}
+
+/* LANDING */
+#landing{max-width:600px;margin:0 auto;padding:60px 24px;}
+.landing-delta{font-family:'DM Serif Display',serif;font-size:48px;color:var(--teal);display:block;margin-bottom:8px;}
+.landing-title{font-family:'DM Serif Display',serif;font-size:36px;line-height:1.2;margin-bottom:16px;}
+.landing-title em{font-style:italic;color:var(--teal);}
+.landing-sub{font-size:14px;color:var(--mid);line-height:1.7;margin-bottom:32px;}
+.card-choice{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.choice-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:28px 24px;cursor:pointer;transition:all .2s;}
+.choice-card:hover{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-light);}
+.choice-icon{font-size:32px;margin-bottom:12px;}
+.choice-title{font-size:16px;font-weight:600;margin-bottom:6px;}
+.choice-desc{font-size:12px;color:var(--mid);line-height:1.6;}
+.choice-btn{margin-top:16px;font-size:13px;font-weight:600;color:var(--teal);}
+
+/* FORM */
+#form-wrap{display:none;max-width:600px;margin:0 auto;padding:40px 24px;}
+.form-header{background:var(--teal);border-radius:14px;padding:24px 28px;margin-bottom:28px;}
+.form-header-delta{font-family:'DM Serif Display',serif;font-size:32px;color:#fff;line-height:1;margin-bottom:6px;}
+.form-header-title{font-size:18px;font-weight:600;color:#fff;margin-bottom:4px;}
+.form-header-sub{font-size:12px;color:var(--teal-light);}
+
+/* PROGRESS */
+.progress-wrap{margin-bottom:28px;}
+.progress-label{font-size:11px;color:var(--mid);margin-bottom:6px;display:flex;justify-content:space-between;}
+.progress-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--teal);border-radius:4px;transition:width .3s;}
+
+/* SECTIONS */
+.form-section{display:none;}
+.form-section.active{display:block;}
+.section-title{font-size:13px;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--teal-light);}
+
+/* FIELDS */
+.field{margin-bottom:20px;}
+.field label{font-size:12px;font-weight:500;color:var(--mid);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.06em;}
+.field label .req{color:var(--teal);}
+input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{
+  width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:14px;color:var(--dark);outline:none;background:#fff;font-family:inherit;}
+input:focus,select:focus,textarea:focus{border-color:var(--teal);}
+textarea{resize:vertical;min-height:100px;}
+select{cursor:pointer;}
+
+/* CHECKBOXES */
+.check-group{display:flex;flex-direction:column;gap:8px;}
+.check-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;cursor:pointer;background:#fff;transition:all .15s;}
+.check-item:hover{border-color:var(--teal);background:var(--teal-light);}
+.check-item input{width:16px;height:16px;accent-color:var(--teal);cursor:pointer;}
+.check-item span{font-size:13px;color:var(--dark);}
+
+/* RADIO */
+.radio-group{display:flex;flex-direction:column;gap:8px;}
+.radio-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;background:#fff;transition:all .15s;}
+.radio-item:hover{border-color:var(--teal);}
+.radio-item.selected{border-color:var(--teal);background:var(--teal-light);}
+.radio-item input{width:16px;height:16px;accent-color:var(--teal);cursor:pointer;}
+.radio-item span{font-size:13px;color:var(--dark);}
+
+/* NAVIGATION */
+.form-nav{display:flex;gap:12px;margin-top:28px;}
+.btn-back{flex:1;padding:12px;background:transparent;border:1.5px solid var(--border);border-radius:var(--radius);font-size:14px;font-weight:500;color:var(--mid);cursor:pointer;}
+.btn-back:hover{border-color:var(--dark);color:var(--dark);}
+.btn-next{flex:2;padding:12px;background:var(--teal);border:none;border-radius:var(--radius);font-size:14px;font-weight:600;color:#fff;cursor:pointer;}
+.btn-next:hover{background:var(--teal-dark);}
+
+/* ERROR */
+.field-error{font-size:12px;color:#DC2626;margin-top:4px;display:none;}
+.field.has-error input,.field.has-error select,.field.has-error textarea{border-color:#DC2626;}
+
+/* SUCCESS */
+#success-wrap{display:none;max-width:480px;margin:80px auto;text-align:center;padding:24px;}
+.success-icon{font-size:56px;margin-bottom:16px;}
+.success-title{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:12px;}
+.success-id{font-family:monospace;font-size:22px;font-weight:700;color:var(--teal);background:var(--teal-light);padding:12px 24px;border-radius:8px;display:inline-block;margin:16px 0;}
+.success-note{font-size:13px;color:var(--mid);line-height:1.7;}
+
+@media(max-width:480px){.card-choice{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="javascript:goHome()" class="nav-logo"><span>Δ</span> Delta Tutoring</a>
+  <a href="javascript:goHome()" class="nav-back">← Back to home</a>
+</nav>
+
+<!-- LANDING -->
+<div id="landing">
+  <span class="landing-delta">Δ</span>
+  <h1 class="landing-title">Apply to<br><em>Delta Tutoring</em></h1>
+  <p class="landing-sub">Select your application type below. All applications are reviewed — not every applicant is accepted, and that's by design.</p>
+  <div class="card-choice">
+    <div class="choice-card" onclick="startForm('student')">
+      <div class="choice-icon">🎓</div>
+      <div class="choice-title">I'm a student</div>
+      <div class="choice-desc">Apply for one-on-one tutoring in maths or statistics at the University of Pretoria.</div>
+      <div class="choice-btn">Apply as student →</div>
+    </div>
+    <div class="choice-card" onclick="startForm('tutor')">
+      <div class="choice-icon">📐</div>
+      <div class="choice-title">I'm a tutor</div>
+      <div class="choice-desc">Join our vetted tutor team and get matched with committed students in your subject.</div>
+      <div class="choice-btn">Apply as tutor →</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM WRAPPER -->
+<div id="form-wrap">
+  <div class="form-header">
+    <div class="form-header-delta">Δ</div>
+    <div class="form-header-title" id="form-title"></div>
+    <div class="form-header-sub">University of Pretoria · Second Semester 2026</div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="progress-text">Step 1 of 5</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+
+  <div id="sections-container"></div>
+
+  <div class="form-nav">
+    <button class="btn-back" id="btn-back" onclick="prevSection()">← Back</button>
+    <button class="btn-next" id="btn-next" onclick="nextSection()">Continue →</button>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div id="success-wrap">
+  <div class="success-icon">🎉</div>
+  <h2 class="success-title">Application Received!</h2>
+  <p style="font-size:14px;color:var(--mid);margin-bottom:8px;">Your Application ID is:</p>
+  <div class="success-id" id="success-id"></div>
+  <p class="success-note">Keep this ID safe — you'll need it to access your client portal.<br><br>Our team will review your application and contact you within <strong>24–48 hours</strong>.<br><br>hello@deltatutoring.co.za</p>
+</div>
+
+<script>
+// ── MODULE DATA ──────────────────────────────────────────
+const MODULES = {
+  student: {
+    maths: {
+      "First Year": [
+        "WTW 123 - Numerical Analysis","WTW 124 - Mathematics","WTW 143 - Calculus",
+        "WTW 144 - Mathematics","WTW 146 - Linear Algebra","WTW 147 - Foundational Mathematics",
+        "WTW 148 - Calculus","WTW 153 - Calculus","WTW 154 - Mathematics",
+        "WTW 162 - Dynamical Processes","WTW 164 - Mathematics","WTW 165 - Mathematics",
+        "JPO 126 - Additional Mathematics"
+      ],
+      "Second Year": [
+        "WTW 220 - Analysis","WTW 221 - Linear Algebra","WTW 224 - Technical Analysis",
+        "WTW 238 - Mathematics","WTW 248 - Vector Analysis","WTW 263 - Numerical Methods",
+        "WTW 264 - Differential Methods","WTW 285 - Discrete Structures"
+      ],
+      "Third Year": [
+        "WTW 320 - Complex Analysis","WTW 364 - Financial Engineering",
+        "WTW 383 - Numerical Analysis","WTW 387 - Continuum Mechanics","WTW 389 - Geometry"
+      ]
+    },
+    stats: {
+      "First Year": [
+        "BME 120 - Biometry","FBS 112 - Financial Management","STC 122 - Statistics",
+        "STC 147 - Foundational Statistics","STC 157 - Mathematical Concepts for Statistics",
+        "STK 120 - Statistics","WST 121 - Mathematical Statistics"
+      ],
+      "Second Year": [
+        "BES 220 - Engineering Statistics","GIS 220 - Geographic Data Analysis",
+        "GJI 220 - Statistics for Teachers","STK 220 - Statistics","WST 220 - Mathematical Statistics"
+      ],
+      "Third Year": [
+        "ESC 320 - Stochastic Communications System","GIS 320 - Spatial Analysis",
+        "STK 320 - Statistics","WST 321 - Time Series Analysis","WST 322 - Actuarial Statistics"
+      ]
+    }
+  },
+  tutor: {
+    maths: {
+      "First Year": [
+        "WTW 123 - Numerical Analysis","WTW 124 - Mathematics","WTW 143 - Calculus",
+        "WTW 144 - Mathematics","WTW 146 - Linear Algebra","WTW 147 - Foundational Mathematics",
+        "WTW 148 - Calculus","WTW 153 - Calculus","WTW 154 - Mathematics",
+        "WTW 162 - Dynamical Processes","WTW 164 - Mathematics","WTW 165 - Mathematics",
+        "JPO 126 - Additional Mathematics"
+      ],
+      "Second Year": [
+        "WTW 220 - Analysis","WTW 221 - Linear Algebra","WTW 224 - Technical Analysis",
+        "WTW 238 - Mathematics","WTW 248 - Vector Analysis","WTW 263 - Numerical Methods",
+        "WTW 264 - Differential Methods","WTW 285 - Discrete Structures"
+      ],
+      "Third Year": [
+        "WTW 320 - Complex Analysis","WTW 364 - Financial Engineering",
+        "WTW 383 - Numerical Analysis","WTW 387 - Continuum Mechanics","WTW 389 - Geometry"
+      ]
+    },
+    stats: {
+      "First Year": [
+        "BME 120 - Biometry","FBS 112 - Financial Management","STC 122 - Statistics",
+        "STC 147 - Foundational Statistics","STC 157 - Mathematical Concepts for Statistics",
+        "STK 120 - Statistics","WST 121 - Mathematical Statistics"
+      ],
+      "Second Year": [
+        "BES 220 - Engineering Statistics","GIS 220 - Geographic Data Analysis",
+        "GJI 220 - Statistics for Teachers","STK 220 - Statistics","WST 220 - Mathematical Statistics"
+      ],
+      "Third Year": [
+        "WTW 320 - Complex Analysis","WTW 364 - Financial Engineering",
+        "WTW 383 - Numerical Analysis","WTW 387 - Continuum Mechanics","WTW 389 - Geometry",
+        "ESC 320 - Stochastic Communications System","GIS 320 - Spatial Analysis",
+        "STK 320 - Statistics","WST 321 - Time Series Analysis","WST 322 - Actuarial Statistics"
+      ]
+    }
+  }
+};
+
+const FACULTIES = ["EBIT","Education","EMS","Humanities","NS","Veterinary"];
+const TOOLS = ["Excel","LaTeX","MATLAB","Python","R","SAS","None"];
+
+// ── STATE ────────────────────────────────────────────────
+let formType = "";
+let currentSection = 0;
+let sections = [];
+let formData = {};
+
+// ── INIT ─────────────────────────────────────────────────
+function goHome(){
+  document.getElementById("landing").style.display="block";
+  document.getElementById("form-wrap").style.display="none";
+  document.getElementById("success-wrap").style.display="none";
+  formData={};currentSection=0;
+}
+
+function startForm(type){
+  formType = type;
+  formData = { type };
+  document.getElementById("landing").style.display="none";
+  document.getElementById("form-wrap").style.display="block";
+  document.getElementById("form-title").textContent = type==="student" ? "Student Application" : "Tutor Application";
+  buildSections();
+  renderSection();
+}
+
+// ── SECTION BUILDERS ─────────────────────────────────────
+function buildSections(){
+  if(formType==="student") buildStudentSections();
+  else buildTutorSections();
+}
+
+function buildStudentSections(){
+  sections = [
+    { id:"s_personal", title:"Personal Details", html: personalFieldsHTML() },
+    { id:"s_year",     title:"Year of Study",    html: yearSelectHTML() },
+    { id:"s_modules",  title:"Module Details",   html: "" }, // dynamic
+    { id:"s_struggle", title:"Areas of Difficulty", html: struggleHTML() },
+    { id:"s_consult",  title:"Almost Done",      html: consultHTML() },
+  ];
+}
+
+function buildTutorSections(){
+  sections = [
+    { id:"t_personal",    title:"Personal Details",      html: tutorPersonalHTML() },
+    { id:"t_year_choice", title:"Subject Availability",  html: tutorYearSubjectHTML() },
+    { id:"t_modules",     title:"Module Selection",      html: "" }, // dynamic
+    { id:"t_proficiency", title:"Proficiency & Experience", html: tutorProficiencyHTML() },
+    { id:"t_availability",title:"Availability",          html: tutorAvailHTML() },
+  ];
+}
+
+// ── HTML BUILDERS ─────────────────────────────────────────
+function personalFieldsHTML(){
+  return `
+  <div class="section-title">Personal Details</div>
+  <div class="field"><label>Name(s) <span class="req">*</span></label><input type="text" id="f_names" placeholder="e.g. Olivia"/></div>
+  <div class="field"><label>Surname <span class="req">*</span></label><input type="text" id="f_surname" placeholder="e.g. Stone"/></div>
+  <div class="field"><label>University <span class="req">*</span></label><input type="text" id="f_university" value="University of Pretoria"/></div>
+  <div class="field"><label>Faculty <span class="req">*</span></label>
+    <select id="f_faculty"><option value="">Select faculty</option>${FACULTIES.map(f=>`<option>${f}</option>`).join("")}</select></div>
+  <div class="field"><label>Degree <span class="req">*</span></label><input type="text" id="f_degree" placeholder="e.g. BSc Computer Science"/></div>
+  <div class="field"><label>Contact Number <span class="req">*</span></label><input type="tel" id="f_phone" placeholder="e.g. 0821234567"/></div>
+  <div class="field"><label>Email Address <span class="req">*</span></label><input type="email" id="f_email" placeholder="e.g. name@students.ac.za"/></div>`;
+}
+
+function tutorPersonalHTML(){
+  return `
+  <div class="section-title">Personal Details</div>
+  <div class="field"><label>Name(s) <span class="req">*</span></label><input type="text" id="f_names" placeholder="e.g. Thabo"/></div>
+  <div class="field"><label>Surname <span class="req">*</span></label><input type="text" id="f_surname" placeholder="e.g. Dlamini"/></div>
+  <div class="field"><label>University <span class="req">*</span></label><input type="text" id="f_university" value="University of Pretoria"/></div>
+  <div class="field"><label>Faculty <span class="req">*</span></label>
+    <select id="f_faculty"><option value="">Select faculty</option>${FACULTIES.map(f=>`<option>${f}</option>`).join("")}</select></div>
+  <div class="field"><label>Degree <span class="req">*</span></label><input type="text" id="f_degree" placeholder="e.g. BSc Mathematics"/></div>
+  <div class="field"><label>Year of Study <span class="req">*</span></label>
+    <select id="f_year_personal"><option value="">Select year</option>
+      <option>First Year</option><option>Second Year</option><option>Third/Final Year</option><option>Honours/Masters</option>
+    </select></div>
+  <div class="field"><label>Contact Number <span class="req">*</span></label><input type="tel" id="f_phone" placeholder="e.g. 0821234567"/></div>
+  <div class="field"><label>Email Address <span class="req">*</span></label><input type="email" id="f_email" placeholder="e.g. name@students.ac.za"/></div>`;
+}
+
+function yearSelectHTML(){
+  return `
+  <div class="section-title">Year of Study</div>
+  <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Select your current year. We'll show you only the relevant modules.</p>
+  <div class="field"><label>Year of Study <span class="req">*</span></label>
+  <div class="radio-group" id="year-radio">
+    ${["First Year","Second Year","Third Year"].map(y=>`
+    <label class="radio-item" onclick="selectRadio(this,'f_year','${y}')">
+      <input type="radio" name="year" value="${y}"/> <span>${y}</span>
+    </label>`).join("")}
+  </div></div>
+  <input type="hidden" id="f_year"/>`;
+}
+
+function tutorYearSubjectHTML(){
+  return `
+  <div class="section-title">Subject Availability</div>
+  <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Select the year level and subject combination you'd like to tutor.</p>
+  <div class="field"><label>I would like to tutor <span class="req">*</span></label>
+  <div class="radio-group" id="tutor-year-sub">
+    ${[
+      "First Year (Maths)","First Year (Stats)","First Year (Maths & Stats)",
+      "Second Year (Maths)","Second Year (Stats)","Second Year (Maths & Stats)",
+      "Third/Final Year (Maths)","Third/Final Year (Stats)","Third/Final Year (Maths & Stats)"
+    ].map(opt=>`
+    <label class="radio-item" onclick="selectRadio(this,'f_tutor_year_sub','${opt}')">
+      <input type="radio" name="tutor_year_sub" value="${opt}"/> <span>${opt}</span>
+    </label>`).join("")}
+  </div></div>
+  <input type="hidden" id="f_tutor_year_sub"/>`;
+}
+
+function buildModuleSection(){
+  const year = formData.year;
+  if(!year) return "<p>Please go back and select your year.</p>";
+  const mathMods = MODULES.student.maths[year] || [];
+  const statsMods = MODULES.student.stats[year] || [];
+  return `
+  <div class="section-title">Module Details — ${year}</div>
+  <p style="font-size:13px;color:var(--mid);margin-bottom:20px;">Tick all modules you need help with. You may select from both Maths and Stats.</p>
+  <div class="field"><label>Mathematics Modules</label>
+  <div class="check-group">${mathMods.map(m=>`
+    <label class="check-item">
+      <input type="checkbox" name="maths_mod" value="${m}"/> <span>${m}</span>
+    </label>`).join("")}
+    <label class="check-item">
+      <input type="checkbox" name="maths_mod" value="None"/> <span>None</span>
+    </label>
+  </div></div>
+  <div class="field" style="margin-top:20px;"><label>Statistics Modules</label>
+  <div class="check-group">${statsMods.map(m=>`
+    <label class="check-item">
+      <input type="checkbox" name="stats_mod" value="${m}"/> <span>${m}</span>
+    </label>`).join("")}
+    <label class="check-item">
+      <input type="checkbox" name="stats_mod" value="None"/> <span>None</span>
+    </label>
+  </div></div>`;
+}
+
+function buildTutorModuleSection(){
+  const choice = formData.tutor_year_sub || "";
+  const isMaths = choice.includes("Maths");
+  const isStats = choice.includes("Stats");
+  const yearKey = choice.includes("First") ? "First Year" : choice.includes("Second") ? "Second Year" : "Third Year";
+  const mathMods = isMaths ? (MODULES.tutor.maths[yearKey]||[]) : [];
+  const statsMods = isStats ? (MODULES.tutor.stats[yearKey]||[]) : [];
+  return `
+  <div class="section-title">Module Selection — ${choice}</div>
+  <p style="font-size:13px;color:var(--mid);margin-bottom:20px;">Select all modules you are confident to tutor.</p>
+  ${isMaths ? `<div class="field"><label>Mathematics Modules <span class="req">*</span></label>
+  <div class="check-group">${mathMods.map(m=>`
+    <label class="check-item"><input type="checkbox" name="tutor_maths_mod" value="${m}"/> <span>${m}</span></label>`).join("")}
+  </div></div>` : ""}
+  ${isStats ? `<div class="field" style="margin-top:${isMaths?20:0}px;"><label>Statistics Modules <span class="req">*</span></label>
+  <div class="check-group">${statsMods.map(m=>`
+    <label class="check-item"><input type="checkbox" name="tutor_stats_mod" value="${m}"/> <span>${m}</span></label>`).join("")}
+  </div></div>` : ""}`;
+}
+
+function struggleHTML(){
+  return `
+  <div class="section-title">Areas of Difficulty</div>
+  <div class="field"><label>Which topics, chapters, concepts, assignments or assessments are you struggling with? <span class="req">*</span></label>
+    <textarea id="f_struggle" placeholder="e.g. Integration by parts, hypothesis testing, matrix operations..."></textarea></div>`;
+}
+
+function consultHTML(){
+  return `
+  <div class="section-title">Almost Done!</div>
+  <p style="font-size:13px;color:var(--mid);margin-bottom:20px;">One last question before we review your application.</p>
+  <div class="field"><label>Would you like a free consultation to help identify where you're struggling? <span class="req">*</span></label>
+  <div class="radio-group">
+    <label class="radio-item" onclick="selectRadio(this,'f_consult','Yes')">
+      <input type="radio" name="consult" value="Yes"/> <span>Yes — book a free diagnostic consultation</span>
+    </label>
+    <label class="radio-item" onclick="selectRadio(this,'f_consult','No')">
+      <input type="radio" name="consult" value="No"/> <span>No — I know where I'm struggling</span>
+    </label>
+  </div>
+  <input type="hidden" id="f_consult"/></div>
+  <div style="background:var(--teal-light);border-radius:10px;padding:16px;margin-top:20px;font-size:13px;color:var(--mid);line-height:1.6;">
+    <strong style="color:var(--teal);">What happens next?</strong><br>
+    Our team will review your application within 24–48 hours. If successful, you'll receive an email with your Application ID and next steps. Not every applicant is accepted — and that's by design.
+  </div>`;
+}
+
+function tutorProficiencyHTML(){
+  return `
+  <div class="section-title">Proficiency & Experience</div>
+  <div class="field"><label>Which tools/languages are you proficient in? <span class="req">*</span></label>
+  <div class="check-group">${TOOLS.map(t=>`
+    <label class="check-item"><input type="checkbox" name="tool" value="${t}"/> <span>${t}</span></label>`).join("")}
+  </div></div>
+  <div class="field" style="margin-top:20px;"><label>Do you have any tutoring experience? <span class="req">*</span></label>
+  <div class="radio-group">
+    <label class="radio-item" onclick="selectRadio(this,'f_exp','Yes')"><input type="radio" name="exp" value="Yes"/> <span>Yes</span></label>
+    <label class="radio-item" onclick="selectRadio(this,'f_exp','No')"><input type="radio" name="exp" value="No"/> <span>No</span></label>
+  </div>
+  <input type="hidden" id="f_exp"/></div>
+  <div class="field"><label>Are you currently tutoring privately or for another company? <span class="req">*</span></label>
+  <div class="radio-group">
+    <label class="radio-item" onclick="selectRadio(this,'f_outside','Yes')"><input type="radio" name="outside" value="Yes"/> <span>Yes</span></label>
+    <label class="radio-item" onclick="selectRadio(this,'f_outside','No')"><input type="radio" name="outside" value="No"/> <span>No</span></label>
+  </div>
+  <input type="hidden" id="f_outside"/></div>`;
+}
+
+function tutorAvailHTML(){
+  return `
+  <div class="section-title">Availability</div>
+  <div class="field"><label>When are you available for an interview? <span class="req">*</span></label>
+    <input type="date" id="f_interview"/></div>
+  <div style="background:var(--teal-light);border-radius:10px;padding:16px;margin-top:8px;font-size:13px;color:var(--mid);line-height:1.6;">
+    <strong style="color:var(--teal);">Concept Explaining</strong><br>
+    You are required to prepare on first year topics for the interview, as you will be required to explain them. This includes methods and solutions.
+  </div>
+  <div style="background:var(--light);border-radius:10px;padding:16px;margin-top:16px;font-size:13px;color:var(--mid);line-height:1.6;">
+    <strong style="color:var(--dark);">What happens next?</strong><br>
+    We'll review your application and contact you within 24–48 hours to schedule your interview. Not every applicant is accepted — and that's by design.
+  </div>`;
+}
+
+// ── SECTION RENDERING ─────────────────────────────────────
+function renderSection(){
+  const container = document.getElementById("sections-container");
+  const sec = sections[currentSection];
+  let html = sec.html;
+
+  // Dynamic module sections
+  if(sec.id === "s_modules") html = buildModuleSection();
+  if(sec.id === "t_modules") html = buildTutorModuleSection();
+
+  container.innerHTML = `<div class="form-section active">${html}</div>`;
+
+  // Update progress
+  const pct = Math.round((currentSection / (sections.length-1)) * 100);
+  document.getElementById("progress-fill").style.width = pct + "%";
+  document.getElementById("progress-pct").textContent = pct + "%";
+  document.getElementById("progress-text").textContent = `Step ${currentSection+1} of ${sections.length}`;
+
+  // Back button visibility
+  document.getElementById("btn-back").style.visibility = currentSection === 0 ? "hidden" : "visible";
+  document.getElementById("btn-next").textContent = currentSection === sections.length-1 ? "Submit Application ✓" : "Continue →";
+}
+
+// ── NAVIGATION ────────────────────────────────────────────
+function prevSection(){
+  if(currentSection > 0){ currentSection--; renderSection(); }
+}
+
+function nextSection(){
+  if(!validateSection()) return;
+  collectSectionData();
+  if(currentSection < sections.length-1){
+    currentSection++;
+    renderSection();
+  } else {
+    submitForm();
+  }
+}
+
+// ── VALIDATION ────────────────────────────────────────────
+function validateSection(){
+  const sec = sections[currentSection];
+  let valid = true;
+
+  if(["s_personal","t_personal"].includes(sec.id)){
+    ["f_names","f_surname","f_university","f_faculty","f_degree","f_phone","f_email"].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el && !el.value.trim()){ highlightError(el); valid=false; }
+    });
+    if(sec.id==="t_personal"){
+      const yr = document.getElementById("f_year_personal");
+      if(yr && !yr.value){ highlightError(yr); valid=false; }
+    }
+  }
+
+  if(sec.id==="s_year"){
+    if(!document.getElementById("f_year").value){ alert("Please select your year of study."); valid=false; }
+  }
+
+  if(sec.id==="t_year_choice"){
+    if(!document.getElementById("f_tutor_year_sub").value){ alert("Please select which year and subject you'd like to tutor."); valid=false; }
+  }
+
+  if(sec.id==="s_struggle"){
+    const el = document.getElementById("f_struggle");
+    if(!el.value.trim()){ highlightError(el); valid=false; }
+  }
+
+  if(sec.id==="s_consult"){
+    if(!document.getElementById("f_consult").value){ alert("Please answer the consultation question."); valid=false; }
+  }
+
+  if(sec.id==="t_proficiency"){
+    if(!document.querySelector('input[name="tool"]:checked')){ alert("Please select at least one tool/language."); valid=false; }
+    if(!document.getElementById("f_exp")?.value){ alert("Please indicate if you have tutoring experience."); valid=false; }
+    if(!document.getElementById("f_outside")?.value){ alert("Please indicate if you are currently tutoring elsewhere."); valid=false; }
+  }
+
+  if(sec.id==="t_availability"){
+    const el = document.getElementById("f_interview");
+    if(!el.value){ highlightError(el); valid=false; }
+  }
+
+  return valid;
+}
+
+function highlightError(el){
+  el.style.borderColor="#DC2626";
+  el.addEventListener("input",()=>el.style.borderColor="",{once:true});
+}
+
+// ── DATA COLLECTION ───────────────────────────────────────
+function collectSectionData(){
+  const sec = sections[currentSection];
+
+  if(["s_personal","t_personal"].includes(sec.id)){
+    formData.names     = val("f_names");
+    formData.surname   = val("f_surname");
+    formData.university= val("f_university");
+    formData.faculty   = val("f_faculty");
+    formData.degree    = val("f_degree");
+    formData.phone     = val("f_phone");
+    formData.email     = val("f_email");
+    if(sec.id==="t_personal") formData.year = val("f_year_personal");
+  }
+
+  if(sec.id==="s_year") formData.year = val("f_year");
+  if(sec.id==="t_year_choice") formData.tutor_year_sub = val("f_tutor_year_sub");
+
+  if(sec.id==="s_modules"){
+    formData.maths_modules = checked("maths_mod");
+    formData.stats_modules = checked("stats_mod");
+  }
+
+  if(sec.id==="t_modules"){
+    formData.tutor_maths_modules = checked("tutor_maths_mod");
+    formData.tutor_stats_modules = checked("tutor_stats_mod");
+  }
+
+  if(sec.id==="s_struggle") formData.struggle = val("f_struggle");
+  if(sec.id==="s_consult")  formData.consultation = val("f_consult");
+
+  if(sec.id==="t_proficiency"){
+    formData.tools    = checked("tool");
+    formData.experience = val("f_exp");
+    formData.outside  = val("f_outside");
+  }
+
+  if(sec.id==="t_availability") formData.interview_date = val("f_interview");
+}
+
+function val(id){ const el=document.getElementById(id); return el?el.value.trim():""; }
+function checked(name){ return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(el=>el.value); }
+
+// ── RADIO HELPER ─────────────────────────────────────────
+function selectRadio(label, hiddenId, value){
+  document.querySelectorAll(`input[name="${label.querySelector('input').name}"]`).forEach(r=>{
+    r.closest('.radio-item').classList.remove('selected');
+  });
+  label.classList.add('selected');
+  label.querySelector('input').checked = true;
+  const hidden = document.getElementById(hiddenId);
+  if(hidden) hidden.value = value;
+}
+
+// ── SUBMISSION ────────────────────────────────────────────
+function submitForm(){
+  collectSectionData();
+  const btn = document.getElementById("btn-next");
+  btn.textContent = "Submitting...";
+  btn.disabled = true;
+
+  // Generate temporary ID client-side
+  // Replace WEB_APP_URL with your actual deployed Apps Script URL
+  const WEB_APP_URL = "YOUR_WEB_APP_URL_HERE";
+  const year = new Date().getFullYear();
+  const seq = String(Math.floor(Math.random()*9000)+1000);
+  const prefix = formType==="student" ? "DT-STU-" : "DT-TUT-";
+  const tempId = `${prefix}${year}-${seq}`;
+
+  fetch(WEB_APP_URL, {
+    method: "POST",
+    body: JSON.stringify({ ...formData, tempId }),
+  })
+  .then(r => r.json())
+  .then(data => {
+    showSuccess(data.appId || tempId);
+  })
+  .catch(() => {
+    // Fallback — show temp ID if fetch fails
+    showSuccess(tempId);
+  });
+}
+
+function showSuccess(id){
+  document.getElementById("form-wrap").style.display="none";
+  document.getElementById("success-wrap").style.display="block";
+  document.getElementById("success-id").textContent = id;
+}
+</script>
+</body>
+</html>
