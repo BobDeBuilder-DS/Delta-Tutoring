@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Delta Tutoring — 4 Fridays to Test Week</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#1a1a1a;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;font-family:'Inter',sans-serif;}
+.poster{background:#0a0a0a;border-radius:16px;overflow:hidden;width:100%;max-width:420px;border:0.5px solid #222;}
+.poster-top{background:#1D9E75;padding:20px 28px 16px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;}
+.tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#E1F5EE;text-align:right;line-height:1.6;}
+.body{padding:28px 28px 20px;}
+.eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#555;margin-bottom:10px;}
+.headline{font-family:'DM Serif Display',serif;font-size:32px;color:#fff;line-height:1.2;margin-bottom:6px;}
+.headline em{color:#1D9E75;font-style:italic;}
+.sub{font-size:12px;color:#888;line-height:1.6;margin-bottom:20px;}
+.free-badge{display:inline-block;background:#1D9E75;color:#E1F5EE;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;}
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;}
+.cd-box{background:#111;border:0.5px solid #222;border-radius:10px;padding:14px 8px;text-align:center;}
+.cd-num{font-family:'DM Serif Display',serif;font-size:36px;color:#1D9E75;line-height:1;margin-bottom:4px;}
+.cd-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#555;}
+.until{font-size:10px;color:#333;text-align:center;margin:8px 0 20px;letter-spacing:.06em;text-transform:uppercase;}
+.divider{border-top:0.5px solid #1a1a1a;margin-bottom:20px;}
+.session-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:0.5px solid #141414;}
+.session-row:last-child{border-bottom:none;}
+.dot{width:6px;height:6px;border-radius:50%;background:#1D9E75;flex-shrink:0;}
+.s-date{font-size:11px;color:#1D9E75;font-weight:600;min-width:60px;}
+.s-title{font-size:12px;color:#ccc;flex:1;}
+.s-week{font-size:10px;color:#444;}
+.poster-bottom{background:#111;padding:16px 28px;display:flex;align-items:center;gap:16px;}
+.qr-box{width:56px;height:56px;background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.qr-grid{width:44px;height:44px;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;}
+.qc{background:#0a0a0a;border-radius:1px;}.qe{background:transparent;}
+.cta-label{font-size:13px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;}
+.cta-sub{font-size:10px;color:#555;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="poster-top">
+    <span class="brand">Δ Delta Tutoring</span>
+    <span class="tag">University of Pretoria<br>Maths & Stats</span>
+  </div>
+  <div class="body">
+    <p class="eyebrow">Second Semester 2025</p>
+    <h1 class="headline">Test week is<br><em>closer</em> than<br>you think.</h1>
+    <p class="sub">4 Fridays. Free sessions. No excuses.<br>Join us every Friday and watch the clock.</p>
+    <span class="free-badge">100% Free</span>
+    <div class="cd-grid">
+      <div class="cd-box"><div class="cd-num" id="w">--</div><div class="cd-lbl">Weeks</div></div>
+      <div class="cd-box"><div class="cd-num" id="d">--</div><div class="cd-lbl">Days</div></div>
+      <div class="cd-box"><div class="cd-num" id="h">--</div><div class="cd-lbl">Hours</div></div>
+      <div class="cd-box"><div class="cd-num" id="m">--</div><div class="cd-lbl">Minutes</div></div>
+    </div>
+    <p class="until">Until Test Week 1 — 22 August 2025</p>
+    <div class="divider"></div>
+    <div class="session-row"><div class="dot"></div><div class="s-date">25 July</div><div class="s-title">Foundation Check</div><div class="s-week">Week 1</div></div>
+    <div class="session-row"><div class="dot"></div><div class="s-date">1 Aug</div><div class="s-title">Danger Zone Topics</div><div class="s-week">Week 2</div></div>
+    <div class="session-row"><div class="dot"></div><div class="s-date">8 Aug</div><div class="s-title">Past Paper Sprint</div><div class="s-week">Week 3</div></div>
+    <div class="session-row"><div class="dot"></div><div class="s-date">15 Aug</div><div class="s-title">Final Push</div><div class="s-week">Week 4</div></div>
+  </div>
+  <div class="poster-bottom">
+    <div class="qr-box">
+      <div class="qr-grid">
+        <div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qe"></div><div class="qc"></div>
+        <div class="qc"></div><div class="qe"></div><div class="qc"></div><div class="qe"></div><div class="qc"></div>
+        <div class="qc"></div><div class="qc"></div><div class="qe"></div><div class="qc"></div><div class="qc"></div>
+        <div class="qe"></div><div class="qc"></div><div class="qe"></div><div class="qc"></div><div class="qe"></div>
+        <div class="qc"></div><div class="qc"></div><div class="qc"></div><div class="qe"></div><div class="qc"></div>
+      </div>
+    </div>
+    <div>
+      <p class="cta-label">Scan to register</p>
+      <p class="cta-sub">Free. Virtual. Every Friday.<br>deltatutoring.co.za</p>
+    </div>
+  </div>
+</div>
+<script>
+function tick(){
+  const target = new Date('2025-08-22T08:00:00');
+  const now = new Date();
+  const diff = target - now;
+  if(diff<=0){['w','d','h','m'].forEach(i=>document.getElementById(i).textContent='00');return;}
+  const totalDays = Math.floor(diff/(1000*60*60*24));
+  document.getElementById('w').textContent = String(Math.floor(totalDays/7)).padStart(2,'0');
+  document.getElementById('d').textContent = String(totalDays%7).padStart(2,'0');
+  document.getElementById('h').textContent = String(Math.floor((diff%(1000*60*60*24))/(1000*60*60))).padStart(2,'0');
+  document.getElementById('m').textContent = String(Math.floor((diff%(1000*60*60))/(1000*60))).padStart(2,'0');
+}
+tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
