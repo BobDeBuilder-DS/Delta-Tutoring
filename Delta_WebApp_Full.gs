@@ -17,10 +17,11 @@ const BUSINESS_EMAIL  = "deltatutoring.pta@gmail.com";
 const WHATSAPP        = "27793228286";
 
 const FRIDAY_SESSIONS = {
-  "1": { date: "25 July 2025", theme: "Foundation Check",    desc: "Know what you don't know before it's too late." },
-  "2": { date: "1 August 2025", theme: "Danger Zone Topics", desc: "The topics that fail most students — let's tackle them." },
-  "3": { date: "8 August 2025", theme: "Past Paper Sprint",  desc: "Work through real questions under real conditions." },
-  "4": { date: "15 August 2025", theme: "Final Push",        desc: "One week out — close every gap before test week." },
+  "1": { date: "24 July 2026", theme: "Foundation Check",    desc: "Know what you don't know before it's too late." },
+  "2": { date: "31 August 2026", theme: "Danger Zone Topics", desc: "The topics that fail most students — let's tackle them." },
+  "3": { date: "7 August 2026", theme: "Past Paper Sprint",  desc: "Work through real questions under real conditions." },
+  "4": { date: "14 August 2026", theme: "Final Push",        desc: "One week out — close every gap before test week." },
+  "5": { date: "21 August 2026", theme: "Wrap up",        desc: "Take a rest day" },
 };
 
 // ── ROUTING ───────────────────────────────────────────────
@@ -316,7 +317,7 @@ function sendEmail(name, email, appId, isStudent) {
       <p style="margin:6px 0 0;font-size:22px;font-weight:bold;color:#1D9E75;letter-spacing:0.05em;">${appId}</p>
     </div>
     <p style="font-size:14px;line-height:1.6;">Our team will review your application and contact you within <strong>24–48 hours</strong>.</p>
-    <p style="font-size:13px;color:#666;">Keep your Application ID safe — you will need it to access your client portal.</p>
+    <p style="font-size:13px;color:#666;">Keep your Application ID safe.</p>
     <div style="border-top:1px solid #E5E5E5;margin-top:28px;padding-top:14px;">
       <p style="margin:0;font-size:12px;color:#888;">Kind regards,</p>
       <p style="margin:4px 0 0;font-size:13px;font-weight:bold;">${BUSINESS_NAME}</p>
@@ -501,7 +502,7 @@ ${nav("home")}
     <span style="font-family:'DM Serif Display',serif;font-size:52px;color:var(--t);display:block;margin-bottom:8px;">Δ</span>
     <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--md);margin-bottom:1.25rem;">Delta Tutoring · University mathematics & statistics</p>
     <h1 style="font-family:'DM Serif Display',serif;font-size:42px;line-height:1.15;font-weight:400;margin-bottom:1.25rem;">Where <em style="font-style:italic;color:var(--t);">change</em> begins<br>with commitment</h1>
-    <p style="font-size:15px;color:var(--md);line-height:1.75;max-width:540px;margin-bottom:2rem;">Specialist one-on-one tutoring for undergraduate quantitative modules. We vet both our tutors and our students — because real progress requires commitment on both sides.</p>
+    <p style="font-size:15px;color:var(--md);line-height:1.75;max-width:540px;margin-bottom:2rem;">Specialist one-on-one tutoring for undergraduate quantitative modules. We vet both our tutors and our students,because real progress requires commitment on both sides.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
       <a href="${url}?page=student-apply" class="btn primary">Apply as a student ↗</a>
       <a href="${url}?page=tutor-apply" class="btn">Join as a tutor ↗</a>
@@ -520,8 +521,8 @@ ${nav("home")}
     <h2 class="section-title">What makes Delta different</h2>
     <div class="grid2">
       <div class="card"><div style="font-size:20px;color:var(--t);margin-bottom:.75rem;">✓</div><p style="font-size:14px;font-weight:600;margin-bottom:.4rem;">Two-sided vetting</p><p style="font-size:13px;color:var(--md);line-height:1.65;">We assess both tutors and students before any match is made. Tutors must demonstrate they can teach, not just solve.</p></div>
-      <div class="card"><div style="font-size:20px;color:var(--t);margin-bottom:.75rem;">📚</div><p style="font-size:14px;font-weight:600;margin-bottom:.4rem;">Subject-matched pairs</p><p style="font-size:13px;color:var(--md);line-height:1.65;">Your tutor has studied the exact module you need help with. Engineering maths, statistics, calculus — matched precisely.</p></div>
-      <div class="card"><div style="font-size:20px;color:var(--t);margin-bottom:.75rem;">📈</div><p style="font-size:14px;font-weight:600;margin-bottom:.4rem;">Progress over marks</p><p style="font-size:13px;color:var(--md);line-height:1.65;">We track growth from your baseline. Delta measures change — that's the point.</p></div>
+      <div class="card"><div style="font-size:20px;color:var(--t);margin-bottom:.75rem;">📚</div><p style="font-size:14px;font-weight:600;margin-bottom:.4rem;">Subject-matched pairs</p><p style="font-size:13px;color:var(--md);line-height:1.65;">Your tutor has studied the exact module you need help with. Engineering maths, statistics, calculus. Matched precisely!</p></div>
+      <div class="card"><div style="font-size:20px;color:var(--t);margin-bottom:.75rem;">📈</div><p style="font-size:14px;font-weight:600;margin-bottom:.4rem;">Progress over marks</p><p style="font-size:13px;color:var(--md);line-height:1.65;">We track growth from your baseline. Delta measures change (that's the point).</p></div>
       <div class="card"><div style="font-size:20px;color:var(--t);margin-bottom:.75rem;">🛡</div><p style="font-size:14px;font-weight:600;margin-bottom:.4rem;">Tutor protection</p><p style="font-size:13px;color:var(--md);line-height:1.65;">Our tutors are capped at 20 hours per month. They are students too. Their academics come first.</p></div>
     </div>
   </div>
