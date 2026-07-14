@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delta Tutoring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #1D9E75;
+      --teal-dark: #0F6E56;
+      --teal-light: #E1F5EE;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555;
+      --text-tertiary: #888;
+      --bg: #ffffff;
+      --bg-secondary: #f7f7f7;
+      --border: #e5e5e5;
+      --border-light: #efefef;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* NAV */
+    nav {
+      border-bottom: 0.5px solid var(--border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    /* HERO */
+    .hero {
+      padding: 4rem 0 3rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .delta-symbol {
+      font-family: 'DM Serif Display', serif;
+      font-size: 52px;
+      color: var(--teal);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 1.25rem;
+    }
+    .headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 44px;
+      line-height: 1.15;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+    }
+    .headline em { font-style: italic; color: var(--teal); }
+    .sub {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 540px;
+      margin-bottom: 2rem;
+    }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 22px;
+      border-radius: var(--radius-md);
+      border: 0.5px solid var(--border);
+      background: transparent;
+      color: var(--text-primary);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: var(--bg-secondary); }
+    .btn.primary {
+      background: var(--teal);
+      color: var(--teal-light);
+      border-color: var(--teal);
+    }
+    .btn.primary:hover { background: var(--teal-dark); }
+
+    /* SECTIONS */
+    section { padding: 2.5rem 0; border-bottom: 0.5px solid var(--border); }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+
+    /* STATS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .stat {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--teal);
+    }
+    .stat-lbl { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+    /* DIFFERENTIATORS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+    }
+    .card-icon { font-size: 20px; color: var(--teal); margin-bottom: 0.75rem; }
+    .card-title { font-size: 14px; font-weight: 500; margin-bottom: 0.4rem; }
+    .card-body { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+
+    /* PACKAGES */
+    .pkg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .pkg {
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .pkg.featured {
+      background: var(--bg);
+      border: 2px solid var(--teal);
+    }
+    .pkg.custom {
+      background: var(--bg);
+      border: 2px dashed var(--border);
+    }
+    .pkg-badge {
+      display: inline-block;
+      font-size: 11px;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.75rem;
+      align-self: flex-start;
+    }
+    .pkg-badge.muted {
+      background: var(--bg-secondary);
+      color: var(--text-tertiary);
+    }
+    .pkg-hrs {
+      font-family: 'DM Serif Display', serif;
+      font-size: 34px;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .pkg-name { font-size: 12px; color: var(--text-secondary); margin-bottom: 0.75rem; }
+    .pkg-price { font-size: 22px; font-weight: 500; margin-bottom: 0.15rem; }
+    .pkg-per { font-size: 12px; color: var(--text-tertiary); margin-bottom: 1rem; }
+    .pkg-line {
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding: 4px 0;
+      border-top: 0.5px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pkg-line i { color: var(--teal); font-size: 14px; }
+
+    .notice {
+      background: var(--bg-secondary);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.75rem 1rem;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-top: 1rem;
+    }
+
+    /* PROCESS */
+    .process { display: flex; flex-direction: column; }
+    .step {
+      display: flex;
+      gap: 16px;
+      padding: 1rem 0;
+      border-bottom: 0.5px solid var(--border-light);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--teal);
+      min-width: 28px;
+      line-height: 1.2;
+    }
+    .step-title { font-size: 14px; font-weight: 500; margin-bottom: 0.25rem; }
+    .step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 0 2rem;
+      text-align: center;
+    }
+    .footer-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      margin-bottom: 0.5rem;
+    }
+    .footer-contact { font-size: 13px; color: var(--text-secondary); margin-bottom: 0.5rem; }
+    .footer-contact a { color: var(--teal); text-decoration: none; }
+    .footer-fine { font-size: 11px; color: var(--text-tertiary); margin-top: 1rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 520px) {
+      .headline { font-size: 32px; }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .pkg-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo"><span>Δ</span> Delta Tutoring</a>
+      <div class="nav-links">
+        <a href="#differentiators">About</a>
+        <a href="#packages">Packages</a>
+        <a href="#process">How it works</a>
+        <a href="#countdown" style="color: var(--teal); font-weight: 500;">Test Week Countdown</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- COUNTDOWN — TOP OF PAGE -->
+    <section id="countdown" style="background:#0a0a0a; margin:0 -24px; padding:2.5rem 24px; border-bottom:3px solid #1D9E75;">
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        <p style="font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#555; margin-bottom:8px;">Second Semester 2025</p>
+        <h2 style="font-family:'DM Serif Display',serif; font-size:28px; color:#fff; font-weight:400; line-height:1.2; margin-bottom:6px;">Test week is <em style="color:#1D9E75; font-style:italic;">closer</em> than you think.</h2>
+        <p style="font-size:12px; color:#666; line-height:1.6;">4 Fridays. Free sessions. No excuses.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:8px; max-width:600px; margin:0 auto 8px;">
+        <div style="background:#111; border:0.5px solid #222; border-radius:10px; padding:12px 4px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:32px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-w">--</div>
+          <div style="font-size:8px; letter-spacing:.08em; text-transform:uppercase; color:#555;">Weeks</div>
+        </div>
+        <div style="background:#111; border:0.5px solid #222; border-radius:10px; padding:12px 4px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:32px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-d">--</div>
+          <div style="font-size:8px; letter-spacing:.08em; text-transform:uppercase; color:#555;">Days</div>
+        </div>
+        <div style="background:#111; border:0.5px solid #222; border-radius:10px; padding:12px 4px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:32px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-h">--</div>
+          <div style="font-size:8px; letter-spacing:.08em; text-transform:uppercase; color:#555;">Hours</div>
+        </div>
+        <div style="background:#111; border:0.5px solid #222; border-radius:10px; padding:12px 4px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:32px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-m">--</div>
+          <div style="font-size:8px; letter-spacing:.08em; text-transform:uppercase; color:#555;">Minutes</div>
+        </div>
+        <div style="background:#111; border:0.5px solid #222; border-radius:10px; padding:12px 4px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:32px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-s">--</div>
+          <div style="font-size:8px; letter-spacing:.08em; text-transform:uppercase; color:#555;">Seconds</div>
+        </div>
+        <div style="background:#111; border:0.5px solid #1D9E75; border-radius:10px; padding:12px 4px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:32px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-ms">--</div>
+          <div style="font-size:8px; letter-spacing:.08em; text-transform:uppercase; color:#555;">Millisec</div>
+        </div>
+      </div>
+
+      <p style="font-size:10px; color:#333; text-align:center; letter-spacing:.06em; text-transform:uppercase; margin-bottom:1.5rem;">Until Test Week 1 — 22 August 2025</p>
+
+      <div style="max-width:500px; margin:0 auto 1.5rem;">
+        <div style="display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:0.5px solid #141414;">
+          <div style="width:5px; height:5px; border-radius:50%; background:#1D9E75; flex-shrink:0;"></div>
+          <div style="font-size:11px; color:#1D9E75; font-weight:600; min-width:70px;">25 July</div>
+          <div style="font-size:12px; color:#ccc; flex:1;">Foundation Check</div>
+          <div style="font-size:10px; color:#444;">Week 1</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:0.5px solid #141414;">
+          <div style="width:5px; height:5px; border-radius:50%; background:#1D9E75; flex-shrink:0;"></div>
+          <div style="font-size:11px; color:#1D9E75; font-weight:600; min-width:70px;">1 August</div>
+          <div style="font-size:12px; color:#ccc; flex:1;">Danger Zone Topics</div>
+          <div style="font-size:10px; color:#444;">Week 2</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:0.5px solid #141414;">
+          <div style="width:5px; height:5px; border-radius:50%; background:#1D9E75; flex-shrink:0;"></div>
+          <div style="font-size:11px; color:#1D9E75; font-weight:600; min-width:70px;">8 August</div>
+          <div style="font-size:12px; color:#ccc; flex:1;">Past Paper Sprint</div>
+          <div style="font-size:10px; color:#444;">Week 3</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:8px 0;">
+          <div style="width:5px; height:5px; border-radius:50%; background:#1D9E75; flex-shrink:0;"></div>
+          <div style="font-size:11px; color:#1D9E75; font-weight:600; min-width:70px;">15 August</div>
+          <div style="font-size:12px; color:#ccc; flex:1;">Final Push</div>
+          <div style="font-size:10px; color:#444;">Week 4</div>
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <span style="display:inline-block; background:#1D9E75; color:#E1F5EE; font-size:10px; font-weight:700; padding:3px 12px; border-radius:20px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:12px;">100% Free</span>
+        <br/>
+        <a href="YOUR_WEBAPP_URL?page=friday-register&week=1" target="_blank" style="display:inline-block; background:#1D9E75; color:#E1F5EE; font-size:13px; font-weight:600; padding:10px 24px; border-radius:10px; text-decoration:none; margin-top:4px;">Register for Free Sessions →</a>
+      </div>
+    </section>
+
+    <!-- HERO -->
+    <div class="hero">
+      <span class="delta-symbol">Δ</span>
+      <p class="eyebrow">Delta Tutoring · University mathematics & statistics</p>
+      <h1 class="headline">Where <em>change</em> begins<br>with commitment</h1>
+      <p class="sub">Specialist one-on-one tutoring for undergraduate quantitative modules. We vet both our tutors and our students — because real progress requires commitment on both sides.</p>
+      <div class="cta-row">
+        <a href="YOUR_WEBAPP_URL?page=student-apply" class="btn primary" target="_blank">Apply as a student ↗</a>
+        <a href="YOUR_WEBAPP_URL?page=tutor-apply" class="btn" target="_blank">Join as a tutor ↗</a>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <section>
+      <p class="section-label">By the numbers</p>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-num">1:1</div>
+          <div class="stat-lbl">Sessions only</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">20hrs</div>
+          <div class="stat-lbl">Max per tutor monthly</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-lbl">Quant modules</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIFFERENTIATORS -->
+    <section id="differentiators">
+      <h2 class="section-title">What makes Delta different</h2>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon"><i class="ti ti-user-check"></i></div>
+          <p class="card-title">Two-sided vetting</p>
+          <p class="card-body">We assess both tutors and students before any match is made. Tutors must demonstrate they can teach, not just solve. Students must show they are ready to commit.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="ti ti-books"></i></div>
+          <p class="card-title">Subject-matched pairs</p>
+          <p class="card-body">Your tutor has studied the exact module you need help with. No generalists. Engineering maths, statistics, calculus — matched precisely.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="ti ti-chart-line"></i></div>
+          <p class="card-title">Progress over marks</p>
+          <p class="card-body">We track growth from your baseline. A student moving from 38% to 62% tells a better story than one coasting at 70%. Delta measures change — that's the point.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="ti ti-shield-check"></i></div>
+          <p class="card-title">Tutor protection</p>
+          <p class="card-body">Our tutors are capped at 20 hours per month. They are students too. We protect their academic performance so they show up at their best for you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section id="packages">
+      <h2 class="section-title">Monthly packages</h2>
+      <p style="font-size:13px; color:var(--text-secondary); margin:-0.75rem 0 1.5rem;">All packages are valid for the current calendar month only. Unused hours do not carry over.</p>
+
+      <div class="pkg-grid">
+        <div class="pkg">
+          <p class="pkg-hrs">5</p>
+          <p class="pkg-name">hours · Starter</p>
+          <p class="pkg-price">R1,500</p>
+          <div class="pkg-line"><i class="ti ti-check"></i> Ideal for 1 to 2 modules</div>
+          <div class="pkg-line"><i class="ti ti-check"></i> Tutor matching</div>
+          <div class="pkg-line"><i class="ti ti-check"></i> Progress report</div>
+        </div>
+        <div class="pkg">
+          <p class="pkg-hrs">10</p>
+          <p class="pkg-name">hours · Standard</p>
+          <p class="pkg-price">R3,000</p>
+          <div class="pkg-line"><i class="ti ti-check"></i> Ideal for 2 to 3 modules</div>
+          <div class="pkg-line"><i class="ti ti-check"></i> Tutor matching</div>
+          <div class="pkg-line"><i class="ti ti-check"></i> Progress report</div>
+        </div>
+        <div class="pkg">
+          <p class="pkg-hrs">15</p>
+          <p class="pkg-name">hours · Committed</p>
+          <p class="pkg-price">R4,000</p>
+          <div class="pkg-line"><i class="ti ti-check"></i> Ideal for 3 to 4 modules</div>
+          <div class="pkg-line"><i class="ti ti-check"></i> Tutor matching</div>
+          <div class="pkg-line"><i class="ti ti-check"></i> Progress report</div>
+        </div>
+        <div class="pkg featured">
+          <span class="pkg-badge">Best value</span>
+          <p class="pkg-hrs">20</p>
+          <p class="pkg-name">hours · Full month</p>
+          <p class="pkg-price">R5,000</p>
+          <div class="pkg-line"><i class="ti ti-check"></i> Ideal for 5 modules</div>
+          <div class="pkg-line"><i class="ti ti-check"></i> Tutor matching</div>
+          <div class="pkg-line"><i class="ti ti-check"></i> Progress report</div>
+          <div class="pkg-line"><i class="ti ti-check"></i> Mid-month check-in</div>
+        </div>
+      </div>
+
+      <div class="pkg custom">
+        <span class="pkg-badge muted">By application only</span>
+        <p class="pkg-hrs">20+</p>
+        <p class="pkg-name">hours · Custom package</p>
+        <p class="pkg-price">Fee on request</p>
+        <p class="pkg-per">Confirmed in writing by Delta Tutoring</p>
+        <div class="pkg-line"><i class="ti ti-check"></i> For students with 6 to 9 modules</div>
+        <div class="pkg-line"><i class="ti ti-check"></i> Hours and fee agreed at intake</div>
+        <div class="pkg-line"><i class="ti ti-check"></i> Subject to tutor availability and approval</div>
+        <div class="pkg-line"><i class="ti ti-check"></i> Bi-weekly payment plan available</div>
+      </div>
+
+      <div class="notice">All packages are month-to-month. Bi-weekly payment plans are available on all packages, with the first instalment due before session one and the second instalment due by the 15th of the month.</div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process">
+      <h2 class="section-title">How it works</h2>
+      <div class="process">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <p class="step-title">You apply</p>
+            <p class="step-desc">Fill in a short intake form. Tell us your module, faculty, year level, and where you're struggling.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <p class="step-title">We assess fit</p>
+            <p class="step-desc">A brief intake conversation to understand your needs, preparation level, and commitment. Not every applicant is accepted, and that's by design.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <p class="step-title">We match you</p>
+            <p class="step-desc">You're paired with a tutor who has studied your exact module at your institution or equivalent.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div>
+            <p class="step-title">You commit and grow</p>
+            <p class="step-desc">Sessions begin. We track your Δ, your change from baseline, monthly. Accountability runs both ways.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- COUNTDOWN SECTION -->
+  <section id="countdown" style="background:#0a0a0a; border-top:3px solid #1D9E75; padding:3rem 0;">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:2rem;">
+        <p style="font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#555; margin-bottom:8px;">Second Semester 2025</p>
+        <h2 style="font-family:'DM Serif Display',serif; font-size:32px; color:#fff; font-weight:400; line-height:1.2; margin-bottom:8px;">Test week is <em style="color:#1D9E75; font-style:italic;">closer</em> than you think.</h2>
+        <p style="font-size:13px; color:#666; line-height:1.6;">4 Fridays. Free sessions. No excuses.<br>Join us every Friday and watch the clock tick.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; max-width:500px; margin:0 auto 12px;">
+        <div style="background:#111; border:0.5px solid #222; border-radius:10px; padding:16px 8px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:40px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-w">--</div>
+          <div style="font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#555;">Weeks</div>
+        </div>
+        <div style="background:#111; border:0.5px solid #222; border-radius:10px; padding:16px 8px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:40px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-d">--</div>
+          <div style="font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#555;">Days</div>
+        </div>
+        <div style="background:#111; border:0.5px solid #222; border-radius:10px; padding:16px 8px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:40px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-h">--</div>
+          <div style="font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#555;">Hours</div>
+        </div>
+        <div style="background:#111; border:0.5px solid #222; border-radius:10px; padding:16px 8px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:40px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-m">--</div>
+          <div style="font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#555;">Minutes</div>
+        </div>
+      </div>
+
+      <p style="font-size:10px; color:#333; text-align:center; letter-spacing:.06em; text-transform:uppercase; margin-bottom:2rem;">Until Test Week 1 — 22 August 2025</p>
+
+      <div style="max-width:500px; margin:0 auto 2rem;">
+        <div style="display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:0.5px solid #141414;">
+          <div style="width:6px; height:6px; border-radius:50%; background:#1D9E75; flex-shrink:0;"></div>
+          <div style="font-size:12px; color:#1D9E75; font-weight:600; min-width:70px;">25 July</div>
+          <div style="font-size:13px; color:#ccc; flex:1;">Foundation Check</div>
+          <div style="font-size:11px; color:#444;">Week 1</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:0.5px solid #141414;">
+          <div style="width:6px; height:6px; border-radius:50%; background:#1D9E75; flex-shrink:0;"></div>
+          <div style="font-size:12px; color:#1D9E75; font-weight:600; min-width:70px;">1 August</div>
+          <div style="font-size:13px; color:#ccc; flex:1;">Danger Zone Topics</div>
+          <div style="font-size:11px; color:#444;">Week 2</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:0.5px solid #141414;">
+          <div style="width:6px; height:6px; border-radius:50%; background:#1D9E75; flex-shrink:0;"></div>
+          <div style="font-size:12px; color:#1D9E75; font-weight:600; min-width:70px;">8 August</div>
+          <div style="font-size:13px; color:#ccc; flex:1;">Past Paper Sprint</div>
+          <div style="font-size:11px; color:#444;">Week 3</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:10px 0;">
+          <div style="width:6px; height:6px; border-radius:50%; background:#1D9E75; flex-shrink:0;"></div>
+          <div style="font-size:12px; color:#1D9E75; font-weight:600; min-width:70px;">15 August</div>
+          <div style="font-size:13px; color:#ccc; flex:1;">Final Push</div>
+          <div style="font-size:11px; color:#444;">Week 4</div>
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <span style="display:inline-block; background:#1D9E75; color:#E1F5EE; font-size:11px; font-weight:700; padding:4px 14px; border-radius:20px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:16px;">100% Free</span>
+        <br/>
+        <a href="https://forms.gle/KiUWoujsuUTPjohn7" target="_blank" style="display:inline-block; background:#1D9E75; color:#E1F5EE; font-size:13px; font-weight:600; padding:11px 28px; border-radius:10px; text-decoration:none; margin-top:8px;">Register for Free Sessions →</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  function tickCountdown(){
+    const target = new Date('2025-08-22T08:00:00');
+    const now = new Date();
+    const diff = target - now;
+    if(diff<=0){
+      ['cd-w','cd-d','cd-h','cd-m','cd-s','cd-ms'].forEach(i=>{
+        const el=document.getElementById(i); if(el) el.textContent='00';
+      });
+      return;
+    }
+    const totalDays = Math.floor(diff/(1000*60*60*24));
+    const set = (id, val) => { const el=document.getElementById(id); if(el) el.textContent=String(val).padStart(2,'0'); };
+    set('cd-w', Math.floor(totalDays/7));
+    set('cd-d', totalDays%7);
+    set('cd-h', Math.floor((diff%(1000*60*60*24))/(1000*60*60)));
+    set('cd-m', Math.floor((diff%(1000*60*60))/(1000*60)));
+    set('cd-s', Math.floor((diff%(1000*60))/1000));
+    set('cd-ms', String(diff%1000).padStart(3,'0').substring(0,2));
+  }
+  tickCountdown();
+  setInterval(tickCountdown, 50);
+  </script>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-name">Δ Delta Tutoring</p>
+    <p class="footer-contact">
+      Pretoria &nbsp;·&nbsp;
+      <a href="https://wa.me/27607238694" target="_blank">WhatsApp us</a>
+    </p>
+    <p class="footer-fine">Specialist university mathematics & statistics · South Africa</p>
+  </footer>
+
+</body>
+</html>
