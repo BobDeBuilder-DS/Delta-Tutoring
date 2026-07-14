@@ -338,7 +338,11 @@
           <div style="font-family:'DM Serif Display',serif; font-size:32px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-s">--</div>
           <div style="font-size:8px; letter-spacing:.08em; text-transform:uppercase; color:#555;">Seconds</div>
         </div>
- </div>
+         <div style="background:#111; border:0.5px solid #1D9E75; border-radius:10px; padding:12px 4px; text-align:center;">
+          <div style="font-family:'DM Serif Display',serif; font-size:32px; color:#1D9E75; line-height:1; margin-bottom:4px;" id="cd-ms">--</div>
+          <div style="font-size:8px; letter-spacing:.08em; text-transform:uppercase; color:#555;">Millisec</div>
+         </div>
+      </div>
 
       <p style="font-size:10px; color:#333; text-align:center; letter-spacing:.06em; text-transform:uppercase; margin-bottom:1.5rem;">Until Test Week 1 — 22 August 2026</p>
 
@@ -506,7 +510,7 @@
     const now = new Date();
     const diff = target - now;
     if(diff<=0){
-      ['cd-w','cd-d','cd-h','cd-m','cd-s'].forEach(i=>{
+      ['cd-w','cd-d','cd-h','cd-m','cd-s','cd-ms'].forEach(i=>{
         const el=document.getElementById(i); if(el) el.textContent='00';
       });
       return;
@@ -518,6 +522,7 @@
     set('cd-h', Math.floor((diff%(1000*60*60*24))/(1000*60*60)));
     set('cd-m', Math.floor((diff%(1000*60*60))/(1000*60)));
     set('cd-s', Math.floor((diff%(1000*60))/1000));
+    set('cd-ms', String(diff%1000).padStart(3,'0').substring(0,2));
   }
   tickCountdown();
   setInterval(tickCountdown, 50);
